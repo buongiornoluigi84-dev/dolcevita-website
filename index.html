@@ -61,7 +61,18 @@
       <h2>Step inside</h2>
       <p class="lede">A little corner of Beeston with mismatched chairs, fairy lights and a wall full of photos — grab a table and settle in.</p>
     </div>
-    <img src="images/interior.jpg" alt="Inside Dolce Vita Craft & Kitchen" class="about-photo">
+    <div class="about-slideshow">
+      <img src="images/interior.jpg" alt="Inside Dolce Vita Craft & Kitchen" class="about-photo slide active">
+      <img src="images/gallery-wall-letters.jpg" alt="Dolce Vita wall lettering" class="about-photo slide">
+      <img src="images/gallery-dining.jpg" alt="Dolce Vita dining area with fairy lights" class="about-photo slide">
+      <img src="images/interior-counter.jpg" alt="Dolce Vita counter" class="about-photo slide">
+      <img src="images/gallery-quote.jpg" alt="Inspirational quote at Dolce Vita" class="about-photo slide">
+      <img src="images/gallery-shelves.jpg" alt="Dolce Vita shelves and books corner" class="about-photo slide">
+      <img src="images/gallery-frame.jpg" alt="Dolce Vita illustrated sign" class="about-photo slide">
+      <img src="images/gallery-pink-wall.jpg" alt="Dolce Vita pink wall with framed art" class="about-photo slide">
+      <img src="images/gallery-counter-blue.jpg" alt="Dolce Vita counter, blue" class="about-photo slide">
+      <img src="images/gallery-counter-wide.jpg" alt="Dolce Vita counter, wide view" class="about-photo slide">
+    </div>
   </div>
 </section>
 
@@ -69,19 +80,24 @@
   <div class="wrap">
     <h2>Inside Dolce Vita</h2>
     <p class="lede" style="margin-bottom:0;">Click any photo to see it larger.</p>
-    <div class="dish-gallery">
-      <figure onclick="openLightbox('images/gallery-wall-letters.jpg')"><img src="images/gallery-wall-letters.jpg" alt="Dolce Vita wall lettering"></figure>
-      <figure onclick="openLightbox('images/gallery-dining.jpg')"><img src="images/gallery-dining.jpg" alt="Dolce Vita dining area with fairy lights"></figure>
-      <figure onclick="openLightbox('images/interior-counter.jpg')"><img src="images/interior-counter.jpg" alt="Dolce Vita counter"></figure>
-      <figure onclick="openLightbox('images/gallery-quote.jpg')"><img src="images/gallery-quote.jpg" alt="Inspirational quote at Dolce Vita"></figure>
-      <figure onclick="openLightbox('images/gallery-shelves.jpg')"><img src="images/gallery-shelves.jpg" alt="Dolce Vita shelves and books corner"></figure>
-      <figure onclick="openLightbox('images/gallery-frame.jpg')"><img src="images/gallery-frame.jpg" alt="Dolce Vita illustrated sign"></figure>
+    <div class="dish-gallery" id="gallery-photos">
+      <figure onclick="openLightbox(0)"><img src="images/gallery-wall-letters.jpg" alt="Dolce Vita wall lettering"></figure>
+      <figure onclick="openLightbox(1)"><img src="images/gallery-dining.jpg" alt="Dolce Vita dining area with fairy lights"></figure>
+      <figure onclick="openLightbox(2)"><img src="images/interior-counter.jpg" alt="Dolce Vita counter"></figure>
+      <figure onclick="openLightbox(3)"><img src="images/gallery-quote.jpg" alt="Inspirational quote at Dolce Vita"></figure>
+      <figure onclick="openLightbox(4)"><img src="images/gallery-shelves.jpg" alt="Dolce Vita shelves and books corner"></figure>
+      <figure onclick="openLightbox(5)"><img src="images/gallery-frame.jpg" alt="Dolce Vita illustrated sign"></figure>
+      <figure onclick="openLightbox(6)"><img src="images/gallery-pink-wall.jpg" alt="Dolce Vita pink wall with framed art"></figure>
+      <figure onclick="openLightbox(7)"><img src="images/gallery-counter-blue.jpg" alt="Dolce Vita counter, blue"></figure>
+      <figure onclick="openLightbox(8)"><img src="images/gallery-counter-wide.jpg" alt="Dolce Vita counter, wide view"></figure>
     </div>
   </div>
 </section>
 
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="">
+<div id="lightbox" class="lightbox">
+  <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); changeLightbox(-1)" aria-label="Previous photo">&#10094;</button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); changeLightbox(1)" aria-label="Next photo">&#10095;</button>
 </div>
 
 <section class="section" id="menu-teaser">
@@ -136,13 +152,44 @@
 </footer>
 
 <script>
-function openLightbox(src){
-  document.getElementById('lightbox-img').src = src;
+var galleryImages = [
+  'images/gallery-wall-letters.jpg',
+  'images/gallery-dining.jpg',
+  'images/interior-counter.jpg',
+  'images/gallery-quote.jpg',
+  'images/gallery-shelves.jpg',
+  'images/gallery-frame.jpg',
+  'images/gallery-pink-wall.jpg',
+  'images/gallery-counter-blue.jpg',
+  'images/gallery-counter-wide.jpg'
+];
+var currentLightbox = 0;
+
+function openLightbox(index){
+  currentLightbox = index;
+  document.getElementById('lightbox-img').src = galleryImages[currentLightbox];
   document.getElementById('lightbox').classList.add('open');
 }
 function closeLightbox(){
   document.getElementById('lightbox').classList.remove('open');
 }
+function changeLightbox(direction){
+  currentLightbox = (currentLightbox + direction + galleryImages.length) % galleryImages.length;
+  document.getElementById('lightbox-img').src = galleryImages[currentLightbox];
+}
+document.getElementById('lightbox').addEventListener('click', closeLightbox);
+
+// Auto-slideshow for "Step inside" photo
+(function(){
+  var slides = document.querySelectorAll('.about-slideshow .slide');
+  if(slides.length < 2) return;
+  var current = 0;
+  setInterval(function(){
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 5500);
+})();
 </script>
 </body>
 </html>
