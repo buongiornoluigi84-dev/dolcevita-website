@@ -13,7 +13,7 @@
 
 <header class="topbar">
   <div class="wrap">
-    <a href="index.html" class="wordmark"><img src="images/logo.png" alt="Dolce Vita Craft & Kitchen" class="logo-img"></a>
+    <a href="index.html" class="wordmark"><img src="images/logo.png" alt="Dolce Vita Craft & Kitchen" class="logo-img logo-pulse"></a>
     <nav class="mainnav">
       <ul>
         <li><a href="index.html" aria-current="page">Home</a></li>
@@ -68,13 +68,21 @@
 <section class="section" id="gallery-strip">
   <div class="wrap">
     <h2>Inside Dolce Vita</h2>
+    <p class="lede" style="margin-bottom:0;">Click any photo to see it larger.</p>
     <div class="dish-gallery">
-      <figure><img src="images/interior-2.jpg" alt="Dolce Vita wall decor"></figure>
-      <figure><img src="images/interior-counter.jpg" alt="Dolce Vita counter"></figure>
-      <figure><img src="images/storefront.jpg" alt="Dolce Vita storefront"></figure>
+      <figure onclick="openLightbox('images/gallery-wall-letters.jpg')"><img src="images/gallery-wall-letters.jpg" alt="Dolce Vita wall lettering"></figure>
+      <figure onclick="openLightbox('images/gallery-dining.jpg')"><img src="images/gallery-dining.jpg" alt="Dolce Vita dining area with fairy lights"></figure>
+      <figure onclick="openLightbox('images/interior-counter.jpg')"><img src="images/interior-counter.jpg" alt="Dolce Vita counter"></figure>
+      <figure onclick="openLightbox('images/gallery-quote.jpg')"><img src="images/gallery-quote.jpg" alt="Inspirational quote at Dolce Vita"></figure>
+      <figure onclick="openLightbox('images/gallery-shelves.jpg')"><img src="images/gallery-shelves.jpg" alt="Dolce Vita shelves and books corner"></figure>
+      <figure onclick="openLightbox('images/gallery-frame.jpg')"><img src="images/gallery-frame.jpg" alt="Dolce Vita illustrated sign"></figure>
     </div>
   </div>
 </section>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <section class="section" id="menu-teaser">
   <div class="wrap">
@@ -127,5 +135,14 @@
   </div>
 </footer>
 
+<script>
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+}
+</script>
 </body>
 </html>
